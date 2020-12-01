@@ -1,3 +1,6 @@
+import java.lang.Math;
+import java.util.Objects;
+
 /**
  * A GeoPoint is a point on the earth. GeoPoints are immutable.
  * <p>
@@ -27,6 +30,20 @@
  * </pre>
  **/
 public class GeoPoint {
+	// Abs. Function
+	// 	represents a point on earth.
+	//	latitude and longitude are held in millionths of degrees.
+	//
+	// Rep. Invariant:
+	//	MIN_LATITUDE < latitude < MAX_LATITUDE
+	//	MIN_LONGITUDE < longitude < MAX_LONGITUDE
+
+	private void checkRep(){
+		assert (this.latitude >= MIN_LATITUDE);
+		assert (this.latitude <= MAX_LATITUDE);
+		assert (this.longitude >= MIN_LONGITUDE);
+		assert (this.longitude <= MAX_LONGITUDE);
+	}
 
 	/** Minimum value the latitude field can have in this class. **/
 	public static final int MIN_LATITUDE  =  -90 * 1000000;
@@ -51,7 +68,14 @@ public class GeoPoint {
      * "flat earth" simplification.
      */
   	public static final double KM_PER_DEGREE_LONGITUDE = 93.681;
-  	
+
+	/**
+	 * Approximation used to determine distances and headings using a
+	 * "flat earth" simplification.
+	 */
+  	private static final double DEGREES_CONVERSION_RATE = 10e6;
+
+
 	// Implementation hint:
 	// Doubles and floating point math can cause some problems. The exact
 	// value of a double can not be guaranteed except within some epsilon.
@@ -64,8 +88,10 @@ public class GeoPoint {
 
   	
   	// TODO Write abstraction function and representation invariant
-  	
-  	
+	private final int  latitude;
+	private final int longitude;
+
+
   	/**
   	 * Constructs GeoPoint from a latitude and longitude.
      * @requires the point given by (latitude, longitude) in millionths
@@ -77,6 +103,9 @@ public class GeoPoint {
    	 **/
   	public GeoPoint(int latitude, int longitude) {
   		// TODO Implement this constructor
+		this.latitude = latitude;
+		this.longitude = longitude;
+		checkRep();
   	}
 
   	 
@@ -86,6 +115,8 @@ public class GeoPoint {
      */
   	public int getLatitude() {
   		// TODO Implement this method
+		checkRep();
+		return this.latitude;
   	}
 
 
@@ -95,7 +126,9 @@ public class GeoPoint {
      */
   	public int getLongitude() {
   		// TODO Implement this method
-  	}
+		checkRep();
+		return this.longitude;
+	}
 
 
   	/**
@@ -104,9 +137,14 @@ public class GeoPoint {
      * @return the distance from this to gp, using the flat-surface, near
      *         the Technion approximation.
      **/
-  	public double distanceTo(GeoPoint gp) {
+  	public double distanceTo(GeoPoint gp) { // todo: check how
   		// TODO Implement this method
-  	}
+		checkRep();
+		double longitudeDelta = ((this.longitude - gp.longitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LATITUDE;
+		double latitudeDelta = ((this.latitude - gp.latitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LONGITUDE;
+		checkRep();
+		return (int)Math.sqrt(Math.pow(longitudeDelta, 2) + Math.pow(latitudeDelta, 2));
+	}
 
 
   	/**
@@ -127,8 +165,13 @@ public class GeoPoint {
 		 // degrees and degrees increase in the clockwise direction. By
 		 // mathematical convention, "east" is 0 degrees, and degrees
 		 // increase in the counterclockwise direction. 
-		 
+
   		// TODO Implement this method
+		checkRep();
+		double longitudeDelta = ((this.longitude - gp.longitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LATITUDE;
+		double latitudeDelta = ((this.latitude - gp.latitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LONGITUDE;
+		checkRep();
+		return (450 - Math.toDegrees(Math.atan2(latitudeDelta, longitudeDelta))) % 360;
   	}
 
 
@@ -139,6 +182,12 @@ public class GeoPoint {
      **/
   	public boolean equals(Object gp) {
   		// TODO Implement this method
+		checkRep();
+		if (!(gp instanceof GeoPoint))
+			return false;
+		GeoPoint point = (GeoPoint) gp;
+		checkRep();
+		return (this.longitude == point.longitude && this.latitude == point.latitude);
   	}
 
 
@@ -149,8 +198,8 @@ public class GeoPoint {
   	public int hashCode() {
     	// This implementation will work, but you may want to modify it
     	// for improved performance.
-
-    	return 1;
+		checkRep();
+		return Objects.hash(this.longitude, this.latitude);
   	}
 
 
@@ -160,6 +209,9 @@ public class GeoPoint {
      **/
   	public String toString() {
   		// TODO Implement this method
+		checkRep();
+		String res = "longitude: " + this.longitude + ", latitude: " + this.latitude;
+		checkRep();
+		return res;
   	}
-
 }
