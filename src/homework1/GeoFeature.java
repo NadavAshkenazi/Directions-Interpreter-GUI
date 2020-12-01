@@ -1,7 +1,8 @@
 package homework1;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A homework1.GeoFeature represents a route from one location to another along a
@@ -51,11 +52,16 @@ public class GeoFeature {
 	// 	represents a route from one location to another along a single geographic feature.
 	// 	start and end points of travel along this route are represented by th GeoPoints start and end.
 	//	start and end directions are represented by the doubles startHeading and endHeading.
-	//	name of the homework1.GeoFeature is represented by the String name.
+	//	name of the GeoFeature is represented by the String name.
 	//
 	// Rep. Invariant:
-	//	MIN_LATITUDE < latitude < MAX_LATITUDE
-	//	MIN_LONGITUDE < longitude < MAX_LONGITUDE
+	//	* start and end are not null
+	//	* segments is not null
+	//	* all names of segments under GeoFeature are the same and equal the name of the GeoFeature
+	//	* segments are sorted in a way such as for every to consecutive segments:
+	//		leftSegment.p2 equals to rightSegment.p1
+	//	* all headings are between 0 and 360
+	//
 	
   	// TODO Write abstraction function and representation invariant
 
@@ -65,12 +71,40 @@ public class GeoFeature {
 	private final double endHeading;
 	private final  String name;
 	private final double length; //todo: computed when?;
-	private LinkedList<GeoSegment> segments;
+	private ArrayList<GeoSegment> segments;
+
 
 	private void checkRep(){
-		GeoSegment lastSegment = segments[0];
+		assert (start != null && end != null && segments !=null);
+		assert (0 < startHeading && startHeading < 360);
+		assert (0 < endHeading && endHeading < 360);
+		GeoSegment lastSegment = segments.get(0);
 		for (GeoSegment gs : segments){
+			assert (gs != null);
+			assert (gs instanceof GeoSegment);
+			assert(this.name == gs.getName());
+			if (gs == segments.get(0)){
+				continue;
+			}
+			assert(lastSegment.getP2().equals(lastSegment.getP1()));
+			lastSegment = gs;
+		}
+	}
 
+	private static void checkRep(GeoFeature gf){
+		assert (gf.start != null && gf.end != null && gf.segments !=null);
+		assert (0 < gf.startHeading && gf.startHeading < 360);
+		assert (0 < gf.endHeading && gf.endHeading < 360);
+		GeoSegment lastSegment = gf.segments.get(0);
+		for (GeoSegment gs : gf. segments){
+			assert (gs != null);
+			assert (gs instanceof GeoSegment);
+			assert(gf.name == gs.getName());
+			if (gs == gf.segments.get(0)){
+				continue;
+			}
+			assert(lastSegment.getP2().equals(lastSegment.getP1()));
+			lastSegment = gs;
 		}
 	}
 
@@ -93,11 +127,28 @@ public class GeoFeature {
 		this.endHeading = gs.getHeading();
 		this.length = gs.getLength();
 		this.name = gs.getName();
-		this.segments = new LinkedList<>(segments);
-		segments.addLast(gs);
-
+		this.segments = new ArrayList<GeoSegment>();
+		this.segments.add(gs);
+		checkRep();
   	}
-  
+
+	public GeoFeature(GeoFeature gf, GeoSegment gs) {
+		// TODO Implement this constructor
+		assert (gf != null);
+		checkRep(gf);
+		assert (gs != null);
+		assert (gf.getEnd().equals(gs.getP1()));
+		assert (gf.getName() == gs.getName());
+		this.start = gf.getStart();
+		this.end = gs.getP2();
+		this.startHeading = gf.getStartHeading();
+		this.endHeading = gs.getHeading();
+		this.length = gf.getLength() + gs.getLength();
+		this.name = gs.getName();
+		this.segments = new ArrayList<GeoSegment>(gf.segments);
+		this.segments.add(gs);
+		checkRep();
+	}
 
  	/**
  	  * Returns name of geographic feature.
@@ -105,6 +156,8 @@ public class GeoFeature {
       */
   	public String getName() {
   		// TODO Implement this method
+		checkRep();
+		return this.name;
   	}
 
 
@@ -114,7 +167,9 @@ public class GeoFeature {
      */
   	public GeoPoint getStart() {
   		// TODO Implement this method
-  	}
+		checkRep();
+		return this.start;
+	}
 
 
   	/**
@@ -123,6 +178,8 @@ public class GeoFeature {
      */
   	public GeoPoint getEnd() {
   		// TODO Implement this method
+		checkRep();
+		return this.end;
   	}
 
 
@@ -133,6 +190,8 @@ public class GeoFeature {
      */
   	public double getStartHeading() {
   		// TODO Implement this method
+		checkRep();
+		return this.startHeading;
   	}
 
 
@@ -143,6 +202,8 @@ public class GeoFeature {
      */
   	public double getEndHeading() {
   		// TODO Implement this method
+		checkRep();
+		return this.endHeading;
   	}
 
 
@@ -155,6 +216,8 @@ public class GeoFeature {
      */
   	public double getLength() {
   		// TODO Implement this method
+		checkRep();
+		return this.length;
   	}
 
 
@@ -169,6 +232,11 @@ public class GeoFeature {
      **/
   	public GeoFeature addSegment(GeoSegment gs) {
   		// TODO Implement this method
+		checkRep();
+		assert (gs != null);
+		assert (gs.getName() == this.name);
+		assert (gs.getP1().equals(this.getEnd()));
+		return new GeoFeature(this, gs);
   	}
 
 
@@ -192,6 +260,8 @@ public class GeoFeature {
      */
   	public Iterator<GeoSegment> getGeoSegments() {
   		// TODO Implement this method
+		checkRep();
+		return this.segments.iterator();
   	}
 
 
@@ -203,6 +273,18 @@ public class GeoFeature {
      **/
   	public boolean equals(Object o) {
   		// TODO Implement this method
+		checkRep();
+		if (!(o instanceof GeoFeature))
+			return false;
+		GeoFeature gf = (GeoFeature) o;
+		if (this.segments.size() != gf.segments.size())
+			return false;
+		for (int i = 0; i < this.segments.size(); i++){
+			if (!(this.segments.get(i).equals(gf.segments.get(i))))
+				return false;
+		}
+		checkRep();
+		return true;
   	}
 
 
@@ -213,8 +295,8 @@ public class GeoFeature {
   	public int hashCode() {
     	// This implementation will work, but you may want to modify it
     	// improved performance.
-    	
-    	return 1;
+    	checkRep();
+    	return Objects.hash(start, end, name, startHeading, endHeading, length);
   	}
 
 
@@ -224,5 +306,8 @@ public class GeoFeature {
      **/
   	public String toString() {
   		// TODO Implement this method
+		checkRep();
+		String res = segments.size() + " segments in " + name;
+		return res;
   	}
 }

@@ -72,8 +72,7 @@ public class GeoPoint {
   	public static final double KM_PER_DEGREE_LONGITUDE = 93.681;
 
 	/**
-	 * Approximation used to determine distances and headings using a
-	 * "flat earth" simplification.
+	 * Convertion rate between actual degrees and how they are represented under geoPoint
 	 */
   	private static final double DEGREES_CONVERSION_RATE = 10e6;
 
