@@ -261,7 +261,8 @@ public class GeoFeature {
   	public Iterator<GeoSegment> getGeoSegments() {
   		// TODO Implement this method
 		checkRep();
-		return this.segments.iterator();
+		ArrayList<GeoSegment>newSegments = new ArrayList<GeoSegment>(this.segments);
+		return newSegments.iterator();
   	}
 
 
