@@ -1,12 +1,14 @@
+package homework1;
+
 /**
- * A RouteFormatter class knows how to create a textual description of
+ * A homework1.RouteFormatter class knows how to create a textual description of
  * directions from one location to another. The class is abstract to
  * support different textual descriptions.
  */
 public abstract class RouteFormatter {
 
   	/**
-     * Give directions for following this Route, starting at its start point
+     * Give directions for following this homework1.Route, starting at its start point
      * and facing in the specified heading.
      * @requires route != null && 
      * 			0 <= heading < 360

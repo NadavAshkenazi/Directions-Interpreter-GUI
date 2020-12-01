@@ -1,3 +1,5 @@
+package homework1;
+
 public class GeoSegmentTest {
 	
 	private static final double tolerance = 0.01;
@@ -68,7 +70,7 @@ public class GeoSegmentTest {
 		GeoSegment gsNorth2 = new GeoSegment("North", gpZivSquare2, gpNorth2);
 		show("Segment equality should use value equality, not reference equality",
 			gsNorth.equals(gsNorth2));
-		show("equals(non-GeoSegment) should be false",
+		show("equals(non-homework1.GeoSegment) should be false",
 		   !gsNorth2.equals("aString"));
 		show("equals(null) should be false",
 		   !gsNorth2.equals(null));

@@ -1,32 +1,34 @@
+package homework1;
+
 import java.util.Iterator;
 
 /**
- * A Route is a path that traverses arbitrary GeoSegments, regardless
+ * A homework1.Route is a path that traverses arbitrary GeoSegments, regardless
  * of their names.
  * <p>
  * Routes are immutable. New Routes can be constructed by adding a segment 
- * to the end of a Route. An added segment must be properly oriented; that 
- * is, its p1 field must correspond to the end of the original Route, and
- * its p2 field corresponds to the end of the new Route.
+ * to the end of a homework1.Route. An added segment must be properly oriented; that
+ * is, its p1 field must correspond to the end of the original homework1.Route, and
+ * its p2 field corresponds to the end of the new homework1.Route.
  * <p>
- * Because a Route is not necessarily straight, its length - the distance
+ * Because a homework1.Route is not necessarily straight, its length - the distance
  * traveled by following the path from start to end - is not necessarily
  * the same as the distance along a straight line between its endpoints.
  * <p>
- * Lastly, a Route may be viewed as a sequence of geographical features,
+ * Lastly, a homework1.Route may be viewed as a sequence of geographical features,
  * using the <tt>getGeoFeatures()</tt> method which returns an Iterator of
- * GeoFeature objects.
+ * homework1.GeoFeature objects.
  * <p>
  * <b>The following fields are used in the specification:</b>
  * <pre>
- *   start : GeoPoint            // location of the start of the route
- *   end : GeoPoint              // location of the end of the route
+ *   start : homework1.GeoPoint            // location of the start of the route
+ *   end : homework1.GeoPoint              // location of the end of the route
  *   startHeading : angle        // direction of travel at the start of the route, in degrees
  *   endHeading : angle          // direction of travel at the end of the route, in degrees
- *   geoFeatures : sequence      // a sequence of geographic features that make up this Route
- *   geoSegments : sequence      // a sequence of segments that make up this Route
+ *   geoFeatures : sequence      // a sequence of geographic features that make up this homework1.Route
+ *   geoSegments : sequence      // a sequence of segments that make up this homework1.Route
  *   length : real               // total length of the route, in kilometers
- *   endingGeoSegment : GeoSegment  // last GeoSegment of the route
+ *   endingGeoSegment : homework1.GeoSegment  // last homework1.GeoSegment of the route
  * </pre>
  **/
 public class Route {
@@ -36,9 +38,9 @@ public class Route {
 
 
   	/**
-  	 * Constructs a new Route.
+  	 * Constructs a new homework1.Route.
      * @requires gs != null
-     * @effects Constructs a new Route, r, such that
+     * @effects Constructs a new homework1.Route, r, such that
      *	        r.startHeading = gs.heading &&
      *          r.endHeading = gs.heading &&
      *          r.start = gs.p1 &&
@@ -102,7 +104,7 @@ public class Route {
      * Creates a new route that is equal to this route with gs appended to
      * its end.
    	 * @requires gs != null && gs.p1 == this.end
-     * @return a new Route r such that
+     * @return a new homework1.Route r such that
      *         r.end = gs.p2 &&
      *         r.endHeading = gs.heading &&
      *         r.length = this.length + gs.length
@@ -113,9 +115,9 @@ public class Route {
 
 
     /**
-     * Returns an Iterator of GeoFeature objects. The concatenation
+     * Returns an Iterator of homework1.GeoFeature objects. The concatenation
      * of the GeoFeatures, in order, is equivalent to this route. No two
-     * consecutive GeoFeature objects have the same name.
+     * consecutive homework1.GeoFeature objects have the same name.
      * @return an Iterator of GeoFeatures such that
      * <pre>
      *      this.start        = a[0].start &&
@@ -136,7 +138,7 @@ public class Route {
 
 
   	/**
-     * Returns an Iterator of GeoSegment objects. The concatenation of the
+     * Returns an Iterator of homework1.GeoSegment objects. The concatenation of the
      * GeoSegments, in order, is equivalent to this route.
      * @return an Iterator of GeoSegments such that
      * <pre>
@@ -155,8 +157,8 @@ public class Route {
 
 
   	/**
-     * Compares the specified Object with this Route for equality.
-     * @return true iff (o instanceof Route) &&
+     * Compares the specified Object with this homework1.Route for equality.
+     * @return true iff (o instanceof homework1.Route) &&
      *         (o.geoFeatures and this.geoFeatures contain
      *          the same elements in the same order).
      **/

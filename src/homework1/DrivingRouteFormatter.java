@@ -1,4 +1,4 @@
-import java.text.DecimalFormat;
+package homework1;
 
 /**
  * The DrivingDirections class creates a textual description of directions
@@ -32,7 +32,7 @@ public class DrivingRouteFormatter extends RouteFormatter {
      * @param origHeading the initial heading.
      * @return A newline-terminated <tt>String</tt> that gives
      * 		   directions on how to traverse this geographical feature.<br>
-     * Calling <tt>computeLine</tt> with a GeoFeature instance and an
+     * Calling <tt>computeLine</tt> with a homework1.GeoFeature instance and an
      * initial heading should produce a newline-terminated String in the
      * following form:
      * <p>

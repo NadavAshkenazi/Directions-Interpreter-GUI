@@ -1,3 +1,5 @@
+package homework1;
+
 /**
  * This class contains two static arrays representing GeoPoints and
  * GeoSegments near the Technion, as shown in the figure in homework

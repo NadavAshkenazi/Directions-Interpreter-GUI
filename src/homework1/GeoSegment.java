@@ -1,11 +1,13 @@
+package homework1;
+
 /**
- * A GeoSegment models a straight line segment on the earth. GeoSegments 
+ * A homework1.GeoSegment models a straight line segment on the earth. GeoSegments
  * are immutable.
  * <p>
  * A compass heading is a nonnegative real number less than 360. In compass
  * headings, north = 0, east = 90, south = 180, and west = 270.
  * <p>
- * When used in a map, a GeoSegment might represent part of a street,
+ * When used in a map, a homework1.GeoSegment might represent part of a street,
  * boundary, or other feature.
  * As an example usage, this map
  * <pre>
@@ -21,18 +23,18 @@
  * </p>
  * 
  * </p>
- * A name is given to all GeoSegment objects so that it is possible to
- * differentiate between two GeoSegment objects with identical
- * GeoPoint endpoints. Equality between GeoSegment objects requires
+ * A name is given to all homework1.GeoSegment objects so that it is possible to
+ * differentiate between two homework1.GeoSegment objects with identical
+ * homework1.GeoPoint endpoints. Equality between homework1.GeoSegment objects requires
  * that the names be equal String objects and the end points be equal
- * GeoPoint objects.
+ * homework1.GeoPoint objects.
  * </p>
  *
  * <b>The following fields are used in the specification:</b>
  * <pre>
  *   name : String       // name of the geographic feature identified
- *   p1 : GeoPoint       // first endpoint of the segment
- *   p2 : GeoPoint       // second endpoint of the segment
+ *   p1 : homework1.GeoPoint       // first endpoint of the segment
+ *   p2 : homework1.GeoPoint       // second endpoint of the segment
  *   length : real       // straight-line distance between p1 and p2, in kilometers
  *   heading : angle     // compass heading from p1 to p2, in degrees
  * </pre>
@@ -44,9 +46,9 @@ public class GeoSegment  {
 	
 	
   	/**
-     * Constructs a new GeoSegment with the specified name and endpoints.
+     * Constructs a new homework1.GeoSegment with the specified name and endpoints.
      * @requires name != null && p1 != null && p2 != null
-     * @effects constructs a new GeoSegment with the specified name and endpoints.
+     * @effects constructs a new homework1.GeoSegment with the specified name and endpoints.
      **/
   	public GeoSegment(String name, GeoPoint p1, GeoPoint p2) {
   		// TODO Implement this method
@@ -54,8 +56,8 @@ public class GeoSegment  {
 
 
   	/**
-     * Returns a new GeoSegment like this one, but with its endpoints reversed.
-     * @return a new GeoSegment gs such that gs.name = this.name
+     * Returns a new homework1.GeoSegment like this one, but with its endpoints reversed.
+     * @return a new homework1.GeoSegment gs such that gs.name = this.name
      *         && gs.p1 = this.p2 && gs.p2 = this.p1
      **/
   	public GeoSegment reverse() {
@@ -64,8 +66,8 @@ public class GeoSegment  {
 
 
   	/**
-  	 * Returns the name of this GeoSegment.
-     * @return the name of this GeoSegment.
+  	 * Returns the name of this homework1.GeoSegment.
+     * @return the name of this homework1.GeoSegment.
      */
   	public String getName() {
   		// TODO Implement this method
@@ -112,8 +114,8 @@ public class GeoSegment  {
 
 
   	/**
-     * Compares the specified Object with this GeoSegment for equality.
-     * @return gs != null && (gs instanceof GeoSegment)
+     * Compares the specified Object with this homework1.GeoSegment for equality.
+     * @return gs != null && (gs instanceof homework1.GeoSegment)
      *         && gs.name = this.name && gs.p1 = this.p1 && gs.p2 = this.p2
    	 **/
   	public boolean equals(Object gs) {

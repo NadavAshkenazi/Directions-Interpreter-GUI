@@ -1,3 +1,5 @@
+package homework1;
+
 public class WalkingRouteFormatterTest {
 	
 	private WalkingRouteFormatter mDirections;

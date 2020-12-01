@@ -1,3 +1,5 @@
+package homework1;
+
 import java.awt.Frame;
 import javax.swing.JDialog;
 import javax.swing.JList;
@@ -19,15 +21,15 @@ public class GeoSegmentsDialog extends JDialog {
 	private JList<GeoSegment> lstSegments;
 	
 	/**
-	 * Creates a new GeoSegmentsDialog JDialog.
-	 * @effects Creates a new GeoSegmentsDialog JDialog with owner-frame
+	 * Creates a new homework1.GeoSegmentsDialog JDialog.
+	 * @effects Creates a new homework1.GeoSegmentsDialog JDialog with owner-frame
 	 * 			owner and parent pnlParent
 	 */
 	public GeoSegmentsDialog(Frame owner, RouteFormatterGUI pnlParent) {
 		// create a modal JDialog with the an owner Frame (a modal window
 		// in one that doesn't allow other windows to be active at the
 		// same time).
-		super(owner, "Please choose a GeoSegment", true);
+		super(owner, "Please choose a homework1.GeoSegment", true);
 		
 		this.parent = pnlParent;
 		

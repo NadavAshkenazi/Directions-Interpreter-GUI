@@ -1,9 +1,11 @@
+package homework1;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
 /**
- * A JPanel GUI for representing a Route. This Route is shown as a list of
+ * A JPanel GUI for representing a homework1.Route. This homework1.Route is shown as a list of
  * GeoSegments. In addition, walking directions and driving directions for
  * traversing this route are shown.
  * <p>
@@ -13,7 +15,7 @@ public class RouteFormatterGUI extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private Route route = null;				// Route shown in this
+	private Route route = null;				// homework1.Route shown in this
 
 	private GeoSegmentsDialog dlgSegments;	// secondary window
 
@@ -28,7 +30,7 @@ public class RouteFormatterGUI extends JPanel {
 	 * @effects Creates a new RoutFormatterGUI JPanel contained in frame.
 	 */
 	public RouteFormatterGUI(JFrame frame) {
-		// create a GeoSegmentsDialog (secondary window)
+		// create a homework1.GeoSegmentsDialog (secondary window)
 		dlgSegments = new GeoSegmentsDialog(frame, this);
 		dlgSegments.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		dlgSegments.pack();
@@ -39,7 +41,7 @@ public class RouteFormatterGUI extends JPanel {
 		JScrollPane scrlSegments = new JScrollPane(lstSegments);
 		scrlSegments.setPreferredSize(new Dimension(450, 100));
 
-		JLabel lblSegments = new JLabel("Route's GeoSegments:");
+		JLabel lblSegments = new JLabel("homework1.Route's GeoSegments:");
 		lblSegments.setLabelFor(lstSegments);
 
 		txtWalkingDirections = new JTextArea();
@@ -56,7 +58,7 @@ public class RouteFormatterGUI extends JPanel {
 		JLabel lblDrivingDirections = new JLabel("Driving Directions:");
 		lblDrivingDirections.setLabelFor(txtDrivingDirections);
 
-		JButton btnAddSegment = new JButton("Add GeoSegment");
+		JButton btnAddSegment = new JButton("Add homework1.GeoSegment");
 		btnAddSegment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dlgSegments.setVisible(true);
@@ -131,10 +133,10 @@ public class RouteFormatterGUI extends JPanel {
 
 
 	/**
-	 * Add new segment to the Route shown by this.
+	 * Add new segment to the homework1.Route shown by this.
 	 * @requires segments != null && segment.p1 == this.route.end
 	 * @effects Add new segment to the end of the route shown by this as
-	 * 			defined by Route.addSegment(). In addition, updates the
+	 * 			defined by homework1.Route.addSegment(). In addition, updates the
 	 * 			walking direction and the driving direction of the GUI
 	 * 			with the return value of
 	 * 			RouteDirection.computeDirections(this.route,0)
@@ -148,7 +150,7 @@ public class RouteFormatterGUI extends JPanel {
 
 
     public static void main(String[] args) {
-		JFrame frame = new JFrame("Route Formatter GUI");
+		JFrame frame = new JFrame("homework1.Route Formatter GUI");
 		Container contentPane = frame.getContentPane();
 		contentPane.add(new RouteFormatterGUI(frame));
 

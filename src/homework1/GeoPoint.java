@@ -1,8 +1,10 @@
+package homework1;
+
 import java.lang.Math;
 import java.util.Objects;
 
 /**
- * A GeoPoint is a point on the earth. GeoPoints are immutable.
+ * A homework1.GeoPoint is a point on the earth. GeoPoints are immutable.
  * <p>
  * North latitudes and east longitudes are represented by positive numbers.
  * South latitudes and west longitudes are represented by negative numbers.
@@ -15,8 +17,8 @@ import java.util.Objects;
  * per degree, and 60 seconds per minute. So, in decimal, these correspond
  * to 32.783098 North latitude and 35.014528 East longitude. The 
  * constructor takes integers in millionths of degrees. To create a new
- * GeoPoint located in the the Ziv square, use:
- * <tt>GeoPoint zivCrossroad = new GeoPoint(32783098,35014528);</tt>
+ * homework1.GeoPoint located in the the Ziv square, use:
+ * <tt>homework1.GeoPoint zivCrossroad = new homework1.GeoPoint(32783098,35014528);</tt>
  * <p>
  * Near the Technion, there are approximately 110.901 kilometers per degree
  * of latitude and 93.681 kilometers per degree of longitude. An
@@ -31,7 +33,7 @@ import java.util.Objects;
  **/
 public class GeoPoint {
 	// Abs. Function
-	// 	represents a point on earth.
+	// 	represents a point on earth by latitude and longitude.
 	//	latitude and longitude are held in millionths of degrees.
 	//
 	// Rep. Invariant:
@@ -84,7 +86,7 @@ public class GeoPoint {
 	// any computations in hashCode(), equals(), or where any other time 
 	// exact values are required. (Exact values are not required for length 
 	// and distance computations). Because of this, you should consider 
-	// using ints for your internal representation of GeoPoint. 
+	// using ints for your internal representation of homework1.GeoPoint.
 
   	
   	// TODO Write abstraction function and representation invariant
@@ -93,16 +95,20 @@ public class GeoPoint {
 
 
   	/**
-  	 * Constructs GeoPoint from a latitude and longitude.
+  	 * Constructs homework1.GeoPoint from a latitude and longitude.
      * @requires the point given by (latitude, longitude) in millionths
    	 *           of a degree is valid such that:
    	 *           (MIN_LATITUDE <= latitude <= MAX_LATITUDE) and
      * 	 		 (MIN_LONGITUDE <= longitude <= MAX_LONGITUDE)
-   	 * @effects constructs a GeoPoint from a latitude and longitude
+   	 * @effects constructs a homework1.GeoPoint from a latitude and longitude
      *          given in millionths of degrees.
    	 **/
   	public GeoPoint(int latitude, int longitude) {
   		// TODO Implement this constructor
+		assert (latitude >= MIN_LATITUDE);
+		assert (latitude <= MAX_LATITUDE);
+		assert (longitude >= MIN_LONGITUDE);
+		assert (longitude <= MAX_LONGITUDE);
 		this.latitude = latitude;
 		this.longitude = longitude;
 		checkRep();
@@ -176,8 +182,8 @@ public class GeoPoint {
 
 
   	/**
-     * Compares the specified Object with this GeoPoint for equality.
-     * @return gp != null && (gp instanceof GeoPoint) &&
+     * Compares the specified Object with this homework1.GeoPoint for equality.
+     * @return gp != null && (gp instanceof homework1.GeoPoint) &&
      * 		   gp.latitude = this.latitude && gp.longitude = this.longitude
      **/
   	public boolean equals(Object gp) {
@@ -192,8 +198,8 @@ public class GeoPoint {
 
 
   	/**
-     * Returns a hash code value for this GeoPoint.
-     * @return a hash code value for this GeoPoint.
+     * Returns a hash code value for this homework1.GeoPoint.
+     * @return a hash code value for this homework1.GeoPoint.
    	 **/
   	public int hashCode() {
     	// This implementation will work, but you may want to modify it
@@ -204,8 +210,8 @@ public class GeoPoint {
 
 
   	/**
-     * Returns a string representation of this GeoPoint.
-     * @return a string representation of this GeoPoint.
+     * Returns a string representation of this homework1.GeoPoint.
+     * @return a string representation of this homework1.GeoPoint.
      **/
   	public String toString() {
   		// TODO Implement this method
