@@ -1,13 +1,15 @@
 package homework1;
+import javax.swing.text.Segment;
+import java.util.Objects;
 
 /**
- * A homework1.GeoSegment models a straight line segment on the earth. GeoSegments
+ * A GeoSegment models a straight line segment on the earth. GeoSegments
  * are immutable.
  * <p>
  * A compass heading is a nonnegative real number less than 360. In compass
  * headings, north = 0, east = 90, south = 180, and west = 270.
  * <p>
- * When used in a map, a homework1.GeoSegment might represent part of a street,
+ * When used in a map, a GeoSegment might represent part of a street,
  * boundary, or other feature.
  * As an example usage, this map
  * <pre>
@@ -21,127 +23,177 @@ package homework1;
  * ("Trumpeldor Avenue", a, i), ("Trumpeldor Avenue", z, i),
  * ("Hanita", i, j), and ("Hanita", j, k).
  * </p>
- * 
+ *
  * </p>
- * A name is given to all homework1.GeoSegment objects so that it is possible to
- * differentiate between two homework1.GeoSegment objects with identical
- * homework1.GeoPoint endpoints. Equality between homework1.GeoSegment objects requires
+ * A name is given to all GeoSegment objects so that it is possible to
+ * differentiate between two GeoSegment objects with identical
+ * GeoPoint endpoints. Equality between GeoSegment objects requires
  * that the names be equal String objects and the end points be equal
- * homework1.GeoPoint objects.
+ * GeoPoint objects.
  * </p>
  *
  * <b>The following fields are used in the specification:</b>
  * <pre>
  *   name : String       // name of the geographic feature identified
- *   p1 : homework1.GeoPoint       // first endpoint of the segment
- *   p2 : homework1.GeoPoint       // second endpoint of the segment
+ *   p1 : GeoPoint       // first endpoint of the segment
+ *   p2 : GeoPoint       // second endpoint of the segment
  *   length : real       // straight-line distance between p1 and p2, in kilometers
  *   heading : angle     // compass heading from p1 to p2, in degrees
  * </pre>
  **/
 public class GeoSegment  {
 
-	
-  	// TODO Write abstraction function and representation invariant
-	
-	
-  	/**
-     * Constructs a new homework1.GeoSegment with the specified name and endpoints.
-     * @requires name != null && p1 != null && p2 != null
-     * @effects constructs a new homework1.GeoSegment with the specified name and endpoints.
-     **/
-  	public GeoSegment(String name, GeoPoint p1, GeoPoint p2) {
-  		// TODO Implement this method
-  	}
+	// Abs. Function
+	// 	represents a segment which is a way between two points on earth.
+	//	every segment has a name,length between two points, compass degree from the 1st point to the 2nd.
+	//  the point represents as Goepoints (p1,p2)
+	//  th name is a string
+	//	the length is a real number >=0 (double)
+	//	the compass degree is real number n,  0<=N<=360 (double)
+	//
+	// Rep. Invariant:
+	//	p1 != null
+	//	p2 != null
+	//	name!=null && name!=""
+
+	private void checkRep(){
+		assert (this.p1 != null);
+		assert (this.p2 !=null);
+		assert (this.name != null&&this.name!="");
+	}
+
+	private final String name;
+	private final GeoPoint p1;
+	private final GeoPoint p2;
+	private final double length;
+	private final double heading;
+
+	// TODO Write abstraction function and representation invariant
 
 
-  	/**
-     * Returns a new homework1.GeoSegment like this one, but with its endpoints reversed.
-     * @return a new homework1.GeoSegment gs such that gs.name = this.name
-     *         && gs.p1 = this.p2 && gs.p2 = this.p1
-     **/
-  	public GeoSegment reverse() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Constructs a new GeoSegment with the specified name and endpoints.
+	 * @requires name != null && p1 != null && p2 != null
+	 * @effects constructs a new GeoSegment with the specified name and endpoints.
+	 **/
+	public GeoSegment(String name, GeoPoint p1, GeoPoint p2) {
+		assert (name!=null);
+		assert (p1!=null);
+		assert (p2!=null);
+		this.name = new String(name);
+		this.p1 = p1;
+		this.p2 = p2;
+		this.length = p1.distanceTo(p2);
+		this.heading = p1.headingTo(p2);
+		checkRep();
+	}
 
 
-  	/**
-  	 * Returns the name of this homework1.GeoSegment.
-     * @return the name of this homework1.GeoSegment.
-     */
-  	public String getName() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns a new GeoSegment like this one, but with its endpoints reversed.
+	 * @return a new GeoSegment gs such that gs.name = this.name
+	 *         && gs.p1 = this.p2 && gs.p2 = this.p1
+	 **/
+	public GeoSegment reverse() {
+		checkRep();
+		GeoSegment gs= new GeoSegment (this.name,this.p2,this.p1);
+		checkRep();
+		return gs;
+	}
 
 
-  	/**
-  	 * Returns first endpoint of the segment.
-     * @return first endpoint of the segment.
-     */
-  	public GeoPoint getP1() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns the name of this GeoSegment.
+	 * @return the name of this GeoSegment.
+	 */
+	public String getName() {
+		checkRep();
+		return this.name;
+	}
 
 
-  	/**
-  	 * Returns second endpoint of the segment.
-     * @return second endpoint of the segment.
-     */
-  	public GeoPoint getP2() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns first endpoint of the segment.
+	 * @return first endpoint of the segment.
+	 */
+	public GeoPoint getP1() {
+		checkRep();
+		return this.p1;
+	}
 
 
-  	/**
-  	 * Returns the length of the segment.
-     * @return the length of the segment, using the flat-surface, near the
-     *         Technion approximation.
-     */
-  	public double getLength() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns second endpoint of the segment.
+	 * @return second endpoint of the segment.
+	 */
+	public GeoPoint getP2() {
+		checkRep();
+		return this.p2;
+	}
 
 
-  	/**
-  	 * Returns the compass heading from p1 to p2.
-     * @requires this.length != 0
-     * @return the compass heading from p1 to p2, in degrees, using the
-     *         flat-surface, near the Technion approximation.
-     **/
-  	public double getHeading() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns the length of the segment.
+	 * @return the length of the segment, using the flat-surface, near the
+	 *         Technion approximation.
+	 */
+	public double getLength() {
+		checkRep();
+		return this.length;
+	}
 
 
-  	/**
-     * Compares the specified Object with this homework1.GeoSegment for equality.
-     * @return gs != null && (gs instanceof homework1.GeoSegment)
-     *         && gs.name = this.name && gs.p1 = this.p1 && gs.p2 = this.p2
-   	 **/
-  	public boolean equals(Object gs) {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns the compass heading from p1 to p2.
+	 * @requires this.length != 0
+	 * @return the compass heading from p1 to p2, in degrees, using the
+	 *         flat-surface, near the Technion approximation.
+	 **/
+	public double getHeading() {
+		checkRep();
+		return this.heading;
+	}
 
 
-  	/**
-  	 * Returns a hash code value for this.
-     * @return a hash code value for this.
-     **/
-  	public int hashCode() {
-    	// This implementation will work, but you may want to modify it 
-    	// for improved performance. 
+	/**
+	 * Compares the specified Object with this GeoSegment for equality.
+	 * @return gs != null && (gs instanceof GeoSegment)
+	 *         && gs.name = this.name && gs.p1 = this.p1 && gs.p2 = this.p2
+	 **/
+	public boolean equals(Object gs) {
+		checkRep();
+		if (!(gs instanceof GeoSegment)) return false;
+		GeoSegment segment = (GeoSegment) gs;
+		checkRep();
+		return (segment.getName().equals(this.name)
+				&& segment.getP1().equals(this.p1)
+				&& segment.getP2().equals(this.p2)
+				);
+	}
 
-    	return 1;
-  	}
+
+	/**
+	 * Returns a hash code value for this.
+	 * @return a hash code value for this.
+	 **/
+	public int hashCode() {
+			checkRep();
+			return Objects.hash(this.heading,this.length,this.name,this.p1,this.p2);
+	}
 
 
-  	/**
-  	 * Returns a string representation of this.
-     * @return a string representation of this.
-     **/
-  	public String toString() {
-  		// TODO Implement this method
-  	}
+	/**
+	 * Returns a string representation of this.
+	 * @return a string representation of this.
+	 **/
+	public String toString() {
+		checkRep();
+		String res = " Segment of " + this.name
+					+ " from " + this.p1.toString()
+					+ " to " + this.p2.toString();
+		checkRep();
+		return res;
+	}
 
 }
 
