@@ -74,7 +74,7 @@ public class GeoPoint {
 	/**
 	 * Convertion rate between actual degrees and how they are represented under geoPoint
 	 */
-  	private static final double DEGREES_CONVERSION_RATE = 10e6;
+  	private static final double DEGREES_CONVERSION_RATE = 1000000;
 
 
 	// Implementation hint:
@@ -145,10 +145,10 @@ public class GeoPoint {
   	public double distanceTo(GeoPoint gp) { // todo: check how
   		// TODO Implement this method
 		checkRep();
-		double longitudeDelta = ((this.longitude - gp.longitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LATITUDE;
-		double latitudeDelta = ((this.latitude - gp.latitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LONGITUDE;
+		double longitudeDelta = ((double)this.longitude - (double)gp.getLongitude()) * KM_PER_DEGREE_LONGITUDE;
+		double latitudeDelta = ((double)this.latitude - (double)gp.getLatitude()) * KM_PER_DEGREE_LATITUDE;
 		checkRep();
-		return (int)Math.sqrt(Math.pow(longitudeDelta, 2) + Math.pow(latitudeDelta, 2));
+		return ((Math.sqrt(Math.pow(longitudeDelta, 2) + Math.pow(latitudeDelta, 2))) / DEGREES_CONVERSION_RATE);
 	}
 
 
@@ -173,10 +173,13 @@ public class GeoPoint {
 
   		// TODO Implement this method
 		checkRep();
-		double longitudeDelta = ((this.longitude - gp.longitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LATITUDE;
-		double latitudeDelta = ((this.latitude - gp.latitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LONGITUDE;
+		double longitudeDelta = ((gp.longitude -this.longitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LONGITUDE;
+		double latitudeDelta = ((gp.latitude -this.latitude ) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LATITUDE;
 		checkRep();
-		return (450 - Math.toDegrees(Math.atan2(latitudeDelta, longitudeDelta))) % 360;
+		double result = (450 - (Math.toDegrees(Math.atan2(latitudeDelta, longitudeDelta)))) % 360;
+		if (result < 0)
+			result += 360;
+		return result;
   	}
 
 
