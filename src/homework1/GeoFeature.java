@@ -50,7 +50,7 @@ public class GeoFeature {
 
 	// Abs. Function
 	// 	represents a route from one location to another along a single geographic feature.
-	// 	start and end points of travel along this route are represented by th GeoPoints start and end.
+	// 	start and end points of travel along this route are represented by the GeoPoints start and end.
 	//	start and end directions are represented by the doubles startHeading and endHeading.
 	//	name of the GeoFeature is represented by the String name.
 	//
@@ -59,9 +59,10 @@ public class GeoFeature {
 	//	* segments is not null
 	//	* all names of segments under GeoFeature are the same and equal the name of the GeoFeature
 	//	* segments are sorted in a way such as for every to consecutive segments:
+	//		leftSegment != null && rightSegment != null
 	//		leftSegment.p2 equals to rightSegment.p1
 	//	* all headings are between 0 and 360
-	//
+
 	
   	// TODO Write abstraction function and representation invariant
 
@@ -71,13 +72,18 @@ public class GeoFeature {
 	private final double endHeading;
 	private final  String name;
 	private final double length; //todo: computed when?;
-	private ArrayList<GeoSegment> segments;
+	private final ArrayList<GeoSegment> segments; //TODO: TRY TO CONVERT TO FINAL
+
+	/**
+	 * max angle of a compass
+	 */
+	private static final double MAX_ANGLE = 360;
 
 
 	private void checkRep(){
 		assert (start != null && end != null && segments !=null);
-		assert (0 < startHeading && startHeading < 360);
-		assert (0 < endHeading && endHeading < 360);
+		assert (0 < startHeading && startHeading < MAX_ANGLE);
+		assert (0 < endHeading && endHeading < MAX_ANGLE);
 		GeoSegment lastSegment = segments.get(0);
 		for (GeoSegment gs : segments){
 			assert (gs != null);
@@ -93,10 +99,10 @@ public class GeoFeature {
 
 	private static void checkRep(GeoFeature gf){
 		assert (gf.start != null && gf.end != null && gf.segments !=null);
-		assert (0 < gf.startHeading && gf.startHeading < 360);
-		assert (0 < gf.endHeading && gf.endHeading < 360);
+		assert (0 < gf.startHeading && gf.startHeading < MAX_ANGLE);
+		assert (0 < gf.endHeading && gf.endHeading < MAX_ANGLE);
 		GeoSegment lastSegment = gf.segments.get(0);
-		for (GeoSegment gs : gf. segments){
+		for (GeoSegment gs : gf.segments){
 			assert (gs != null);
 			assert (gs instanceof GeoSegment);
 			assert(gf.name == gs.getName());
