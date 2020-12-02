@@ -74,7 +74,7 @@ public class GeoFeature {
 	private final double endHeading;
 	private final  String name;
 	private final double length;
-	private final ArrayList<GeoSegment> segments; 
+	private final ArrayList<GeoSegment> segments;
 
 	/**
 	 * max angle of a compass
@@ -92,12 +92,12 @@ public class GeoFeature {
 		for (GeoSegment gs : gf.segments){
 			assert (gs != null);
 			assert (gs instanceof GeoSegment);
-			assert(gf.name == gs.getName());
+			assert(gf.name.equals(gs.getName()));
 			sumOfLength += gs.getLength();
 			if (gs.equals(gf.segments.get(0))){
 				continue;
 			}
-			assert(lastSegment.getP2().equals(lastSegment.getP1()));
+			assert(lastSegment.getP2().equals(gs.getP1()));
 			lastSegment = gs;
 		}
 		assert (gf.length == sumOfLength);
@@ -133,7 +133,7 @@ public class GeoFeature {
 		checkRep(gf);
 		assert (gs != null);
 		assert (gf.getEnd().equals(gs.getP1()));
-		assert (gf.getName() == gs.getName());
+		assert (gf.getName().equals(gs.getName()));
 		this.start = gf.getStart();
 		this.end = gs.getP2();
 		this.startHeading = gf.getStartHeading();
@@ -229,7 +229,7 @@ public class GeoFeature {
   		// TODO Implement this method
 		checkRep(this);
 		assert (gs != null);
-		assert (gs.getName() == this.name);
+		assert (gs.getName().equals(this.name));
 		assert (gs.getP1().equals(this.getEnd()));
 		return new GeoFeature(this, gs);
   	}

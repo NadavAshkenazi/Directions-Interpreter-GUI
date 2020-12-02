@@ -126,7 +126,7 @@ public class Route {
 				continue;
 			}
 			assert (lastFeature.getEnd().equals(gf.getStart()));
-			assert (lastFeature.getName() != gf.getName());
+			assert (!lastFeature.getName().equals(gf.getName()));
 			lastFeature = gf;
 			assert (route.length == sumOfFeaturesLength);
 		}
@@ -189,7 +189,7 @@ public class Route {
 		this.segments.add(gs);
 		this.features = new ArrayList<GeoFeature>(route.features);
 		GeoFeature lastFeature = this.features.get(this.features.size() -1);
-		if (lastFeature.getName() == gs.getName()){
+		if (lastFeature.getName().equals(gs.getName()) ){
 			this.features.set(this.features.size() -1, lastFeature.addSegment(gs));
 		}
 		else{

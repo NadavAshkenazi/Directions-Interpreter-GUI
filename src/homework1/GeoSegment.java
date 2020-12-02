@@ -59,7 +59,7 @@ public class GeoSegment  {
 	private void checkRep(){
 		assert (this.p1 != null);
 		assert (this.p2 !=null);
-		assert (this.name != null&&this.name!="");
+		assert (this.name != null);
 	}
 
 	private final String name;
