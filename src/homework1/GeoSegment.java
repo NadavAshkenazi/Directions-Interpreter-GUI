@@ -96,7 +96,7 @@ public class GeoSegment  {
 	 **/
 	public GeoSegment reverse() {
 		checkRep();
-		GeoSegment gs= new GeoSegment (this.name,this.p2,this.p1);
+		GeoSegment gs = new GeoSegment (this.name,this.p2,this.p1);
 		checkRep();
 		return gs;
 	}
