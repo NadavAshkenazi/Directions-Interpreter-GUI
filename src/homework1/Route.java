@@ -130,20 +130,22 @@ public class Route {
 			lastFeature = gf;
 			assert (route.length == sumOfFeaturesLength);
 		}
-		Iterator<GeoSegment> segmentsGs = route.segments.iterator();
-		Iterator<GeoSegment> featuresGs = null;
+		Iterator<GeoSegment> segmentsGsIt = route.segments.iterator();
+		Iterator<GeoSegment> featuresGsIt = null;
 		for (GeoFeature gf : route.features) {
-			featuresGs = gf.getGeoSegments();
-			while (featuresGs.hasNext() && segmentsGs.hasNext()) {
-				assert (segmentsGs.next().equals(featuresGs.next()));
+			featuresGsIt = gf.getGeoSegments();
+			while (featuresGsIt.hasNext() && segmentsGsIt.hasNext()) {
+				Object segmentsGs = segmentsGsIt.next();
+				Object featuresGs = featuresGsIt.next();
+				assert (segmentsGs.equals(featuresGs));
 				if (segmentsGs.equals(route.segments.get(route.segments.size() - 1))) {
 					assert (gf.equals(route.features.get(route.features.size() - 1)));
-					assert (!featuresGs.hasNext());
+					assert (!featuresGsIt.hasNext());
 					assert (segmentsGs.equals(endingGeoSegment) && featuresGs.equals(endingGeoSegment));
 				}
 			}
 		}
-		assert (featuresGs.hasNext() == false && segmentsGs.hasNext() == false);
+		assert (featuresGsIt.hasNext() == false && segmentsGsIt.hasNext() == false);
 	}
 
     /**
@@ -168,6 +170,7 @@ public class Route {
 		this.segments.add(gs);
 		this.features = new ArrayList<GeoFeature>();
 		this.features.add(new GeoFeature(gs));
+		int i = 0;
 //        checkRep(this);
   	}
 
@@ -297,7 +300,7 @@ public class Route {
   	public Iterator<GeoFeature> getGeoFeatures() {
   		// TODO Implement this method
 		checkRep(this);
-		ArrayList<GeoFeature> tempList = new ArrayList<GeoFeature>();
+		ArrayList<GeoFeature> tempList = new ArrayList<GeoFeature>(this.features);
 		checkRep(this);
 		return tempList.iterator();
   	}
@@ -339,23 +342,28 @@ public class Route {
 			return false;
 		Route givenRoute = (Route) o;
 
-		Iterator<GeoFeature> ownFeature = this.getGeoFeatures();
-		Iterator<GeoFeature> givenFeature = givenRoute.getGeoFeatures();
-		while (ownFeature.hasNext()){
-			if (!ownFeature.next().equals(givenFeature.next()))
+		Iterator<GeoFeature> ownFeatureIt = this.getGeoFeatures();
+		Iterator<GeoFeature> givenFeatureIt = givenRoute.getGeoFeatures();
+		while (ownFeatureIt.hasNext() && givenFeatureIt.hasNext()){
+			Object ownFeature = ownFeatureIt.next();
+			Object givenFeature = givenFeatureIt.next();
+
+			if (!ownFeature.equals(givenFeature))
 				return false;
 		}
-		if (givenFeature.hasNext())
+		if (givenFeatureIt.hasNext() || ownFeatureIt.hasNext())
 			return false;
 
 
-		Iterator<GeoSegment> ownSegment = this.getGeoSegments();
-		Iterator<GeoSegment> givenSegment = givenRoute.getGeoSegments();
-		while (ownSegment.hasNext() && givenSegment.hasNext()){
-			if (!ownSegment.next().equals(givenSegment.next()))
+		Iterator<GeoSegment> ownSegmentIt = this.getGeoSegments();
+		Iterator<GeoSegment> givenSegmentIt = givenRoute.getGeoSegments();
+		while (ownSegmentIt.hasNext() && givenSegmentIt.hasNext()){
+			Object ownSegment = ownSegmentIt.next();
+			Object givenSegment = givenSegmentIt.next();
+			if (!ownSegment.equals(givenSegment))
 				return false;
 		}
-		if (ownSegment.hasNext() || givenSegment.hasNext())
+		if (ownSegmentIt.hasNext() || givenSegmentIt.hasNext())
 			return false;
 		checkRep(this);
 		return true;

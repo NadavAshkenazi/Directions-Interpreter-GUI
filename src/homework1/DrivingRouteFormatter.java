@@ -1,5 +1,6 @@
 package homework1;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 
@@ -60,9 +61,10 @@ public class DrivingRouteFormatter extends RouteFormatter {
   		// http://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html
 		   		
   		// TODO Implement this method
-		String direction = getTurnString(origHeading, geoFeature.getStartHeading()) + "onto " + geoFeature.getName();
-		direction += " and go " + geoFeature.getLength() + " kilometers";
-		return direction + "\n";
+		DecimalFormat df = new DecimalFormat("#.#");
+		String direction = getTurnString(origHeading, geoFeature.getStartHeading()) + " onto " + geoFeature.getName();
+		direction += " and go " + df.format(geoFeature.getLength()) + " kilometers";
+		return direction + ".\n";
   	}
 
 }
