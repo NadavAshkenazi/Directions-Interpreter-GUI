@@ -188,9 +188,9 @@ public class GeoSegment  {
 	 **/
 	public String toString() {
 		checkRep();
-		String res = " Segment of " + this.name
-					+ " from " + this.p1.toString()
-					+ " to " + this.p2.toString();
+		String res = "(\"" + this.name +"\""
+					+ ", " + this.p1.toString()
+					+ ", " + this.p2.toString()+")";
 		checkRep();
 		return res;
 	}
