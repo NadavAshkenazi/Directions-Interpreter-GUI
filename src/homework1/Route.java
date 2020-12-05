@@ -226,6 +226,7 @@ public class Route {
   	 * Returns direction of travel at the start of the route, in degrees.
    	 * @return direction (in compass heading) of travel at the start of the
    	 *         route, in degrees.
+	 *         if the first segment is of zero length return -1.
    	 **/
   	public double getStartHeading() {
   		// TODO Implement this method
@@ -238,6 +239,7 @@ public class Route {
   	 * Returns direction of travel at the end of the route, in degrees.
      * @return direction (in compass heading) of travel at the end of the
      *         route, in degrees.
+	 *         if the end segment is of zero length return -1.
      **/
   	public double getEndHeading() {
   		// TODO Implement this method

@@ -182,6 +182,7 @@ public class GeoFeature {
   	 * Returns direction of travel at the start of the geographic feature.
      * @return direction (in standard heading) of travel at the start of the
      *         geographic feature, in degrees.
+	 *         if the first segment is of zero length return -1.
      */
   	public double getStartHeading() {
   		// TODO Implement this method
@@ -194,6 +195,7 @@ public class GeoFeature {
   	 * Returns direction of travel at the end of the geographic feature.
      * @return direction (in standard heading) of travel at the end of the
      *         geographic feature, in degrees.
+	 *         if the end segment is of zero length return -1.
      */
   	public double getEndHeading() {
   		// TODO Implement this method
