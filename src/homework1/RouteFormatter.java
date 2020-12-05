@@ -52,36 +52,6 @@ public abstract class RouteFormatter {
   	public abstract String computeLine(GeoFeature geoFeature, double origHeading);
 
 
-	/**
-	 * Computesthe severity to turn based on the heading change with no regards to direction.
-	 * @requires 0 <= heading1 < 360 &&
-	 *           0 <= heading2 < 360 &&
-	 *           heading2 >= heading1
-	 * @param bigHeading bigger heading.
-	 * @param smallHeading smaller heading.
-	 * @return the severity of the turn, for bigHeating-smallHeading = delta
-	 * <p>
-	 * <pre>
-	 * Continue             if delta < 10
-	 * Turn slight     if 10 <= delta < 60
-	 * Turn            if 60 <= delta < 120
-	 * Turn sharp      if 120 <= delta < 179
-	 * U-turn               if 179 <= delta
-	 * </pre>
-	 */
-	private String _decideTurnAbs(double bigHeading, double smallHeading){
-		double delta = bigHeading - smallHeading;
-		if (delta < 10)
-			return "Continue";
-		else if (delta < 60)
-			return "Turn slight";
-		else if (delta < 120)
-			return "Turn";
-		else if (delta < 179)
-			return "Turn sharp";
-		return "U-turn";
-	}
-
   	/**
      * Computes directions to turn based on the heading change.
      * @requires 0 <= oldHeading < 360 &&
@@ -104,19 +74,28 @@ public abstract class RouteFormatter {
 
   	protected String getTurnString(double origHeading, double newHeading) {
   		// TODO Implement this method
-		String severity;
-		String direction;
-		if (newHeading > origHeading){
-			severity = _decideTurnAbs(newHeading, origHeading);
-			direction = "right";
-		}
-
-		else{
-			severity = _decideTurnAbs(origHeading, newHeading);
-			direction = "left";
-		}
-		if (!severity.equals("continue") && !!severity.equals("U-turn"))
-			return severity + direction;
-		return severity;
+		double delta = newHeading - origHeading;
+		String res = "";
+		if (delta < 0 )
+			delta += 360;
+		if (delta < 10)
+			res = "Continue";
+		else if (delta < 60)
+			res = "Turn slight right";
+		else if (delta < 120)
+			res = "Turn right";
+		else if (delta < 179)
+			res = "Turn sharp right";
+		else if (delta < 181)
+			res = "U-turn";
+		else if (delta < 240 )
+			res = "Turn sharp left";
+		else if (delta < 300)
+			res = "Turn left";
+		else if (delta < 350)
+			res = "Turn slight left";
+		else
+			res = "Continue";
+		return res;
 	}
 }

@@ -218,7 +218,7 @@ public class GeoPoint {
   	public String toString() {
   		// TODO Implement this method
 		checkRep();
-		String res = "latitude: " + this.latitude + ", longitude: " + this.longitude;
+		String res = "(" + this.latitude + "," + this.longitude +")";
 		checkRep();
 		return res;
   	}
