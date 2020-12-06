@@ -60,7 +60,6 @@ public class WalkingRouteFormatter extends RouteFormatter {
 		// and at:
 		// http://docs.oracle.com/javase/8/docs/api/java/text/DecimalFormat.html
 					 
-  		// TODO Implement this method
 		DecimalFormat df = new DecimalFormat("#");
 		String direction = getTurnString(origHeading, geoFeature.getStartHeading()) + " onto " + geoFeature.getName();
 		direction += " and walk for " + df.format(geoFeature.getLength()*20) + " minutes";

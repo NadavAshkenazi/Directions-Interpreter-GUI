@@ -35,7 +35,6 @@ public class GeoSegmentsDialog extends JDialog {
 		
 		this.parent = pnlParent;
 		
-		// TODO Write the body of this method
 
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {

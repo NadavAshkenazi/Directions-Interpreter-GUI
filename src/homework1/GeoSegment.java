@@ -68,7 +68,6 @@ public class GeoSegment  {
 	private final double length;
 	private final double heading;
 
-	// TODO Write abstraction function and representation invariant
 
 
 	/**

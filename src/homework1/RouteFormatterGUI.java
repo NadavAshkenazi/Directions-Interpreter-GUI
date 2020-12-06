@@ -146,7 +146,6 @@ public class RouteFormatterGUI extends JPanel {
 		DefaultListModel<GeoSegment> model =
 				(DefaultListModel<GeoSegment>)(this.lstSegments.getModel());
 		
-		// TODO Write the body of this method
 
 		if (route == null){
 			route = new Route(segment);

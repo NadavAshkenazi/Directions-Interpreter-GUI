@@ -37,7 +37,6 @@ import java.util.Objects;
 public class Route {
 
 
- 	// TODO Write abstraction function and representation invariant
 
 	// Abs. Function
 	//	A Route is a path that traverses arbitrary GeoSegments
@@ -158,7 +157,6 @@ public class Route {
      *          r.end = gs.p2
      **/
   	public Route(GeoSegment gs) {
-  		// TODO Implement this constructor
         assert(gs != null);
         this.start = gs.getP1();
 		this.end = gs.getP2();
@@ -171,11 +169,10 @@ public class Route {
 		this.features = new ArrayList<GeoFeature>();
 		this.features.add(new GeoFeature(gs));
 		int i = 0;
-//        checkRep(this);
+        checkRep(this);
   	}
 
 	private Route(Route route, GeoSegment gs) {
-		// TODO Implement this constructor
 		assert (route != null);
 		checkRep(route);
 		assert (gs != null);
@@ -205,7 +202,6 @@ public class Route {
      * @return location of the start of the route.
      **/
   	public GeoPoint getStart() {
-  		// TODO Implement this method
 		checkRep(this);
         return this.start;
   	}
@@ -216,7 +212,6 @@ public class Route {
      * @return location of the end of the route.
      **/
   	public GeoPoint getEnd() {
-  		// TODO Implement this method
 		checkRep(this);
 		return this.end;
   	}
@@ -229,7 +224,6 @@ public class Route {
 	 *         if the first segment is of zero length return -1.
    	 **/
   	public double getStartHeading() {
-  		// TODO Implement this method
 		checkRep(this);
 		return this.startHeading;
   	}
@@ -242,7 +236,6 @@ public class Route {
 	 *         if the end segment is of zero length return -1.
      **/
   	public double getEndHeading() {
-  		// TODO Implement this method
 		checkRep(this);
 		return this.endHeading;
   	}
@@ -255,7 +248,6 @@ public class Route {
      *         traverse the route. These values are not necessarily equal.
    	 **/
   	public double getLength() {
-  		// TODO Implement this method
 		checkRep(this);
 		return this.length;
   	}
@@ -271,7 +263,6 @@ public class Route {
      *         r.length = this.length + gs.length
      **/
   	public Route addSegment(GeoSegment gs) {
-  		// TODO Implement this method
 		checkRep(this);
 		assert (gs != null);
 		assert (gs.getP1().equals(this.endingGeoSegment.getP2()));
@@ -300,7 +291,6 @@ public class Route {
      * @see homework1.GeoFeature
      **/
   	public Iterator<GeoFeature> getGeoFeatures() {
-  		// TODO Implement this method
 		checkRep(this);
 		ArrayList<GeoFeature> tempList = new ArrayList<GeoFeature>(this.features);
 		checkRep(this);
@@ -323,7 +313,6 @@ public class Route {
      * @see homework1.GeoSegment
      **/
   	public Iterator<GeoSegment> getGeoSegments() {
-  		// TODO Implement this method
 		checkRep(this);
 		ArrayList<GeoSegment> tempList = new ArrayList<GeoSegment>();
 		checkRep(this);
@@ -338,7 +327,6 @@ public class Route {
      *          the same elements in the same order).
      **/
   	public boolean equals(Object o) {
-  		// TODO Implement this method
 		checkRep(this);
 		if (!(o instanceof Route))
 			return false;

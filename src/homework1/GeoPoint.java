@@ -88,7 +88,6 @@ public class GeoPoint {
 	// using ints for your internal representation of homework1.GeoPoint.
 
   	
-  	// TODO Write abstraction function and representation invariant
 	private final int  latitude;
 	private final int longitude;
 
@@ -103,7 +102,6 @@ public class GeoPoint {
      *          given in millionths of degrees.
    	 **/
   	public GeoPoint(int latitude, int longitude) {
-  		// TODO Implement this constructor
 		assert (latitude >= MIN_LATITUDE);
 		assert (latitude <= MAX_LATITUDE);
 		assert (longitude >= MIN_LONGITUDE);
@@ -119,7 +117,6 @@ public class GeoPoint {
      * @return the latitude of this in millionths of degrees.
      */
   	public int getLatitude() {
-  		// TODO Implement this method
 		checkRep();
 		return this.latitude;
   	}
@@ -130,7 +127,6 @@ public class GeoPoint {
      * @return the latitude of this in millionths of degrees.
      */
   	public int getLongitude() {
-  		// TODO Implement this method
 		checkRep();
 		return this.longitude;
 	}
@@ -142,8 +138,7 @@ public class GeoPoint {
      * @return the distance from this to gp, using the flat-surface, near
      *         the Technion approximation.
      **/
-  	public double distanceTo(GeoPoint gp) { // todo: check how
-  		// TODO Implement this method
+  	public double distanceTo(GeoPoint gp) {
 		checkRep();
 		double longitudeDelta = ((double)this.longitude - (double)gp.getLongitude()) * KM_PER_DEGREE_LONGITUDE;
 		double latitudeDelta = ((double)this.latitude - (double)gp.getLatitude()) * KM_PER_DEGREE_LATITUDE;
@@ -171,7 +166,6 @@ public class GeoPoint {
 		 // mathematical convention, "east" is 0 degrees, and degrees
 		 // increase in the counterclockwise direction. 
 
-  		// TODO Implement this method
 		checkRep();
 		double longitudeDelta = ((gp.longitude -this.longitude) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LONGITUDE;
 		double latitudeDelta = ((gp.latitude -this.latitude ) / DEGREES_CONVERSION_RATE) * KM_PER_DEGREE_LATITUDE;
@@ -189,7 +183,6 @@ public class GeoPoint {
      * 		   gp.latitude = this.latitude && gp.longitude = this.longitude
      **/
   	public boolean equals(Object gp) {
-  		// TODO Implement this method
 		checkRep();
 		if (!(gp instanceof GeoPoint))
 			return false;
@@ -216,7 +209,6 @@ public class GeoPoint {
      * @return a string representation of this homework1.GeoPoint.
      **/
   	public String toString() {
-  		// TODO Implement this method
 		checkRep();
 		String res = "(" + this.latitude + "," + this.longitude +")";
 		checkRep();

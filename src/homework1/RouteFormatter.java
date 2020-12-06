@@ -26,7 +26,6 @@ public abstract class RouteFormatter {
 		// feature in this route and concatenate the results into a single
 		// String.
   		
-  		// TODO Implement this method
 		Iterator<GeoFeature> it = route.getGeoFeatures();
 		String directions = "";
 		double oldHeding = heading;
@@ -73,7 +72,6 @@ public abstract class RouteFormatter {
      */
 
   	protected String getTurnString(double origHeading, double newHeading) {
-  		// TODO Implement this method
 		double delta = newHeading - origHeading;
 		String res = "";
 		if (delta < 0 )
